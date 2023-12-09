@@ -41,10 +41,11 @@ function gameOver() {
 
     for( var i = 0; i < state.length; ++i ) {
         if( state[i] === '' ) {
-            return false;
+            return false; // game is not over yet
         }
     }
 
+    // game is over
     messageEl.innerText = 'Game over!';
     return true;
 }
