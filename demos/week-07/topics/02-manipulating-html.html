@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <!-- https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent#differences_from_innertext -->
+        <p id="message-1">
+            Hello <strong>world</strong>
+        </p>
+        <p id="message-2"></p>
+
+        <script>
+            /**
+             * Set innerHTML for #message-1, and innerText for #message-2
+             * Read up about XSS attack and innerHTML vs innerText (please use innerText as far as possible)
+             */
+            console.log( document.getElementById( 'message-1' ).innerHTML );
+            document.getElementById( 'message-1' ).innerHTML = 'Hello <strong>DOM</strong>';
+
+            // setting innerText does not lead to parsing the text set
+            document.getElementById( 'message-2' ).innerText = 'Hello <strong>DOM</strong>';
+        </script>
+    </body>
+</html>

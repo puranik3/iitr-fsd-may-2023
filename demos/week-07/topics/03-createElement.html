@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <p class="message"></p>
+
+        <script>
+            /**
+             * Using createElement, createTextNode, appendChild
+             * https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild
+             */
+            const domText = document.createTextNode( 'DOM' ); // 'DOM'
+            const strongEl = document.createElement( 'strong' ); // <strong></strong>
+            strongEl.appendChild( domText ); // <strong>DOM</strong>
+
+            const helloText = document.createTextNode( 'Hello ');
+            
+            const pEl = document.querySelector( '.message' );
+            pEl.appendChild( helloText );
+            pEl.appendChild( strongEl );
+        </script>
+    </body>
+</html>

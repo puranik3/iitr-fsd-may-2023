@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            /* #message {
+
+            }
+
+            .x {
+
+            }
+
+            p {
+
+            }
+
+            section > p.x {
+                
+            } */
+        </style>
+    </head>
+    <body>
+        <p id="message" class="x">Para 1 (#message)</p>
+        
+        <p class="x">Para 2 (class x)</p>
+        
+        <section>
+            <p class="x">Para within a section (class x)</p>
+        </section>
+        
+        <p>Para 3</p>
+
+        <script>
+            /**
+             * Get message element by id
+             * Get elements with class x (getElementsByClassName)
+             * Get elements with class x (querySelectorAll)
+             * Get first element with class name x (querySelector)
+             * Get first element with class name x that lies within a section (2 approaches - using CSS selector, and searching in a DOM subtree)
+             */
+            const messageEl = document.getElementById( 'message' );
+            console.dir( messageEl );
+            console.log( messageEl );
+
+            const root = document.documentElement;
+            console.dir( root ); // DOM node for the html element
+            console.dir( root.children ); // HTMLCollection (like an array of DOM nodes) with [ head, body ]
+            console.dir( root.children[0] ); // head
+            console.dir( root.children[1] ); // body
+            console.dir( root.children.length ); // 2 (2 children for html element)
+
+            const xEls = document.getElementsByClassName( 'x' );
+            console.log( xEls );
+            console.log( xEls[0] );
+            console.log( xEls.length );
+
+            const messageEl2 = document.querySelector( '#message' );
+            console.log( messageEl2 );
+
+            // document.querySelectorAll( '#message' );
+
+            // querySelector() gives the first matching node
+            const xElsFirst = document.querySelector( '.x' );
+            console.log( xElsFirst );
+
+            // querySelectorAll() gives all matching nodes
+            const xEls2 = document.querySelectorAll( '.x' );
+            console.log( xEls2 );
+            console.log( xEls2[0] );
+            console.log( xEls2.length ); // 3
+
+            console.log( document.querySelector( 'section > p' ) );
+
+            // querySelector(), querySelectorAll() are methods of every DOM node
+            const sectionEl = document.querySelector( 'section' );
+            sectionEl.querySelector( 'p' ); // first p within the section
+        </script>
+    </body>
+</html>

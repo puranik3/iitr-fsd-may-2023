@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <button>Click me</button>
+        <a href="https://www.google.com" id="google-link">Google search page</a>
+        
+        <input type="range" min="1" max="10" value="3" id="rating" />
+        <span id="rating-value"></span>
+
+        <script>
+            /**
+             * Set 'click' handler on button. Check "this", event object
+             * Prevent default action on 'click' of Google search page link if user does not want to navigate.
+             * The 'input' event of inputs using range input. The value property.
+             */
+            const btnEl = document.querySelector( 'button' );
+
+            // Q: Who calls this method when user clicks?
+            // A: the browser executes the onclick() method when user clicks the btnEl
+            // Usually we do not use on<event> property
+            btnEl.onclick = function( event ) {
+                console.log( 1 );
+            };
+            
+            btnEl.addEventListener( 'click', function( event ) {
+                console.log( 2 );
+                console.log( event );
+                console.log( event.offsetX, event.offsetY );
+            });
+
+            btnEl.addEventListener( 'click', function( event ) {
+                console.log( 3 );
+            });
+
+            document.getElementById( 'google-link' ).addEventListener( 'click', function( event ) {
+                const choice = confirm( 'Do you want to leave my site?' );
+
+                if( choice === false ) { // Cancel button
+                    event.preventDefault(); // Hey browser! Do not do what you usually do for this event
+                }
+            });
+
+            function onInput( event ) {
+                // event.target is the element on which the event occurs
+                // value property exists for input elements - it is the current value of the input
+                document.getElementById( 'rating-value' ).innerText = event.target.value;
+            }
+
+            onInput({
+                target: {
+                    value: document.getElementById( 'rating' ).value
+                }
+            });
+
+            document.getElementById( 'rating' ).addEventListener( 'input', onInput );
+        </script>
+    </body>
+</html>

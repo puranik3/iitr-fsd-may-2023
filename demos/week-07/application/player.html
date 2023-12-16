@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Simple Music Player</title>
+    <!-- Load FontAwesome icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"
+    />
+
+    <!-- Load the custom CSS style file -->
+    <link rel="stylesheet" type="text/css" href="player.css" />
+  </head>
+  <body>
+    <!-- <audio src="songs/sample1.mp3" controls></audio> -->
+    <div class="player">
+      <!-- Define the section for displaying details -->
+      <div class="details">
+        <div class="now-playing">PLAYING x OF y</div>
+        <div class="track-art"></div>
+        <div class="track-name">Track Name</div>
+        <div class="track-artist">Artist</div>
+      </div>
+
+      <!-- Define the section for displaying track buttons -->
+      <div class="buttons">
+        <div class="prev-track">
+          <i class="fas fa-step-backward fa-2x"></i>
+        </div>
+        <div class="playpause-track">
+          <i class="fas fa-play-circle fa-5x"></i>
+        </div>
+        <div class="next-track">
+          <i class="fas fa-step-forward fa-2x"></i>
+        </div>
+      </div>
+
+      <!-- Define the section for displaying the seek slider-->
+      <div class="slider_container">
+        <div class="current-time">00:00</div>
+        <input
+          type="range"
+          min="0"
+          min="100"
+          value="0"
+          class="seek_slider"
+        />
+        <div class="total-duration">00:00</div>
+      </div>
+
+      <!-- Define the section for displaying the volume slider-->
+      <div class="slider_container">
+        <i class="fa fa-volume-down"></i>
+        <input
+          type="range"
+          min="0"
+          min="100"
+          value="100"
+          class="volume_slider"
+        />
+        <i class="fa fa-volume-up"></i>
+      </div>
+    </div>
+
+    <!-- Load the main script for the player -->
+    <script src="index.js"></script>
+  </body>
+</html>

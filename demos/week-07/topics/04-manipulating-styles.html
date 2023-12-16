@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            .message {
+                padding: 0.5em;
+                border: 1px solid black;
+                border-radius: 5px;
+            }
+
+            .message-success {
+                color: green;
+                font-size: 24px;
+            }
+        </style>
+    </head>
+    <body>
+        <p class="message">Your email was sent</p>
+
+        <script>
+            /**
+             * Do some inline styling. Add appropriate class.
+             * https://nikitahl.com/add-multiple-classes-in-javascript#:~:text=The%20classList%20property%20has%20add,want%20to%20remove%20multiple%20classes.
+             */
+            const messageEl = document.querySelector( '.message' );
+
+            console.log( messageEl.style );
+            // messageEl.style.color = 'green';
+            // messageEl.style.fontSize = '24px';
+
+            console.log( messageEl.classList.contains( 'message' ) ); // true
+            console.log( messageEl.classList.contains( 'message-success' ) ); // false
+            messageEl.classList.add( 'message-success' );
+        </script>
+    </body>
+</html>
