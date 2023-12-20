@@ -63,10 +63,6 @@ function loadTrack() {
 
   clearInterval( timerId );
   timerId = setInterval( seekUpdate, 1000 );
-
-  // set the duration for the song
-  // exercise...
-  // audioPlayer.duration
 }
 
 // Set up a random background color
@@ -91,6 +87,12 @@ function playTrack() {
   audioPlayer.play();
   isPlaying = true;
   playpause_btn.innerHTML = '<i class="fas fa-pause-circle fa-5x"></i>';
+  
+  // set the duration for the song
+  const minutes = Math.floor( audioPlayer.duration / 60 );
+  const seconds = Math.floor( audioPlayer.duration - minutes * 60 );
+
+  total_duration.innerText = `${('' + minutes).padStart( 2, '0' )}:${('' + seconds).padStart( 2, '0' )}`;
 }
     
 function pauseTrack() {
@@ -121,7 +123,6 @@ function setVolume() {
 
 // update the progress slider and durations as the music plays
 function seekUpdate() {
-  console.log( 'executed' );
   const minutes = Math.floor( audioPlayer.currentTime / 60 );
   const seconds = Math.floor( audioPlayer.currentTime - minutes * 60 );
 
