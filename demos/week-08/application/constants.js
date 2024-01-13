@@ -8,10 +8,10 @@ export const APPLES = 5;
 
 // level background colors
 export const COLORS = [
+    "#e6f2ff",
     "#fafafa",
     "#ffffcc",
     "#ffe6ee",
-    "#e6f2ff",
     "#e6ffe6",
     "#fff0e6",
     "#e6e6ff",
@@ -19,3 +19,10 @@ export const COLORS = [
     "#e6ffe6",
     "#ff4d4d",
 ];
+
+export const Directions = {
+    Left: "Left",
+    Right: "Right",
+    Up: "Up",
+    Down: "Down"
+};
