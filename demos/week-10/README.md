@@ -1,3 +1,8 @@
+# Frontend frameworks/libraries
+- Angular - Google - 2009 - v15 - Framework
+- React - Meta - 2013 - v18
+- Vue JS - 2015 - v3
+
 # React
 
 ## What it is
@@ -25,3 +30,8 @@ React (Meta), Angular (Google), Vue - <Menu items={[ 'Home', 'About Us', 'Contac
         - In the browser youd see the message 'Game over!' (<div>Game over!</div> )
     - React, Angular, Vue etc. manage the DOM for use -> we should never manipulate the DOM ourselves.
     - These libraries manage the DOM efficiently
+
+## Creating a React app
+```
+npx create-react-app payment-gateway --template typescript
+```
