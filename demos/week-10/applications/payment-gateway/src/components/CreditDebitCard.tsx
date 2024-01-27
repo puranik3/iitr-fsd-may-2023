@@ -1,6 +1,7 @@
 import { ChangeEvent, Component, FormEvent } from 'react';
 import { range } from '../utils/array';
-import Dialog from './Dialog';
+import ConfirmationDialog from './ConfirmationDialog';
+import PaymentOptions from '../models/PaymentOptions';
 
 class CreditDebitCard extends Component {
     state = {
@@ -32,6 +33,12 @@ class CreditDebitCard extends Component {
 
         this.setState({
             showConfirmationDialog: true
+        });
+    }
+
+    closeConfirmationDialog = () => {
+        this.setState({
+            showConfirmationDialog: false
         });
     }
 
@@ -138,7 +145,12 @@ class CreditDebitCard extends Component {
                     </table>
                 </form>
                 {
-                    showConfirmationDialog && <Dialog />
+                    showConfirmationDialog && (
+                        <ConfirmationDialog
+                            closeConfirmationDialog={this.closeConfirmationDialog}
+                            modeOfPayment={PaymentOptions.DebitCreditCard}
+                        />
+                    )
                 }
             </div>
         );

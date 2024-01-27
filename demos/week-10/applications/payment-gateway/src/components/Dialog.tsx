@@ -1,12 +1,27 @@
+import { ReactNode } from 'react';
 import './Dialog.css';
 
-const Dialog = () => {
+type Props = {
+    children: ReactNode,
+    show: boolean
+};
+
+const Dialog = ( props : Props ) => {
+    // console.log( props );
+    const { show, children } = props;
+
     return (
-        <div className="dialog-overlay">
-            <div className="dialog">
-                This is a dialog
-            </div>
-        </div>
+        <>
+            {
+                
+                    <div className="dialog-overlay">
+                        <div className="dialog">
+                            {children}
+                        </div>
+                    </div>
+                
+            }
+        </>
     );
 }
  
