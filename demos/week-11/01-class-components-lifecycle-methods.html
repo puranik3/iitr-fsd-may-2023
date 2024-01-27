@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.js"></script>
+
+        <script type="text/babel">
+            const getWorkshops = async ( _page ) => {
+                // get the data from the backend
+                const response = await axios.get( `https://workshops-server.onrender.com/workshops`, {
+                    params: {
+                        // _page: _page
+                        _page
+                    }
+                } );
+                return response.data;
+            };
+
+            // Mounting (shows up, i.e. renders for the first time), Update, Unmounting
+            class WorkshopsList extends React.Component {
+                state = {
+                    loading: true,
+                    workshops: [],
+                    error: null,
+                    _page: 1
+                };
+
+                previous = () => {
+                    if( this.state._page === 1 ) {
+                        return;
+                    }
+
+                    this.setState({
+                        _page: this.state._page - 1
+                    });
+                };
+
+                next = () => {
+                    this.setState({
+                        _page: this.state._page + 1
+                    });
+                };
+
+                render() {
+                    console.log( 'render' );
+
+                    const { loading, workshops, error, _page } = this.state;
+
+                    return (
+                        <div>
+                            <h1>List of workshops</h1> 
+                            <button className="btn btn-sm btn-primary me-2" onClick={this.previous}>Previous</button> 
+                            <button className="btn btn-sm btn-primary" onClick={this.next}>Next</button>
+                            <div>You are viewing page {_page}</div>
+                            {
+                                loading && (
+                                    <div className="d-flex justify-content-center">
+                                        <div className="spinner-border" role="status">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                            {
+                                <div className="row">
+                                    {
+                                        !loading && workshops.length !== 0 && (
+                                            workshops.map(
+                                                workshop => (
+                                                    <div key={workshop.id} className="col-12 col-lg-4 d-flex my-3">
+                                                        <div className={`card w-100 bg-${this.props.theme} text-info`}>
+                                                            <img src={workshop.imageUrl} className="card-img-top" alt={workshop.name} />
+                                                            <div className="card-body">
+                                                                <h5 className="card-title">{workshop.name}</h5>
+                                                                <div className="card-text" dangerouslySetInnerHTML={{ __html: workshop.description }}></div>
+                                                                <a href="#" className="btn btn-primary">Go somewhere</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </div>      
+                            }
+                            {
+                                !loading && error !== null && (
+                                    <div className="alert alert-danger" role="alert">
+                                        {error.message}
+                                    </div>
+                                )
+                            }
+                        </div>
+                    )
+                }
+
+                async fetchWorkshops() {
+                    this.setState({
+                        loading: true
+                    });
+
+                    try {
+                        const workshops = await getWorkshops( this.state._page );
+                        this.setState({
+                            // workshops: workshops
+                            workshops,
+                            loading: false
+                        });
+                    } catch( error ) {
+                        this.setState({
+                            // error: error
+                            error,
+                            loading: false
+                        });
+                    }
+                }
+
+                // this is called after the first render (i.e. when the component mounts)
+                componentDidMount() {
+                    console.log( 'componentDidMount' );
+
+                    this.fetchWorkshops();
+                }
+
+                // is called after every subsequent render (every render except the first render)
+                componentDidUpdate(prevProps, prevState) {
+                    console.log( 'componentDidUpdate' );
+
+                    console.log( prevProps );
+                    console.log( prevState );
+
+                    if( prevState._page !== this.state._page ) {
+                        this.fetchWorkshops();
+                    }
+                }
+
+                componentWillUnmount() {
+                    console.log( 'componentWillUnmount' );
+                }
+            }
+            
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render(
+                <div className="container">
+                    <WorkshopsList
+                        theme="light"
+                    />
+                </div>
+            );
+
+            // Please uncomment to see componentDidUpdate being called after props change (theme prop value changes)
+            // setTimeout(
+            //     () => {
+            //         root.render(
+            //             <div className="container">
+            //                 <WorkshopsList
+            //                     theme="dark"
+            //                 />
+            //             </div>
+            //         );
+            //     },
+            //     10000
+            // );
+
+            setTimeout(
+                () => {
+                    root.render(
+                        <div>That's all folks!</div>
+                    );
+                },
+                10000
+            );
+        </script>
+    </body>
+</html>
