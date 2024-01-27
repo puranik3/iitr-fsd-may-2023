@@ -14,10 +14,19 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.js"></script>
 
+        <script type="module">
+            import workshops from './workshops.js';
+            console.log( workshops );
+
+            workshops.forEach(
+                workshop => console.log( workshop.name )
+            )
+        </script>
+
         <script type="text/babel">
             const getWorkshops = async ( _page ) => {
                 // get the data from the backend
-                const response = await axios.get( `https://workshops-server.onrender.com/workshops`, {
+                const response = await axios.get( `workshops.json`, {
                     params: {
                         // _page: _page
                         _page
