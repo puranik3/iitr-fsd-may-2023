@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Context API</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css">
+        <style>
+            .app {
+                display: flex;
+            }
+
+            .sidebar-wrapper, .main-wrapper {
+                flex-basis: 0;
+                padding: 1em;
+            }
+
+            .sidebar-wrapper {
+                flex-grow: 1;
+                background-color: lightblue;
+            }
+            
+            .main-wrapper {
+                flex-grow: 3;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root"></div>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.js"></script>
+
+        <script type="text/babel">
+            // 2 components are generated - DocumentContext.Provider, DocumentContext.Consumer (for using context in class components)
+            const DocumentContext = React.createContext();
+
+            const documents = {
+                'Home': 'Welcome to Example.com',
+                'About Us': 'We are so and so company',
+                'Contact Us': 'Call us to get in touch. Phone: 1234567890'
+            };
+
+            const App = () => {
+                const [ doc, setDoc ] = React.useState( 'Home' );
+
+                const value = {
+                    // doc: doc,
+                    doc,
+                    setDoc,
+                    documents,
+                    pages: Object.keys( documents )
+                };
+
+                return (
+                    <DocumentContext.Provider value={value}>
+                        <div className="app">
+                            <A />
+                            <B />
+                        </div>
+                    </DocumentContext.Provider>
+                );
+            };
+
+            const A = () => {
+                return (
+                    <div className="sidebar-wrapper">
+                        <input type="search" />
+                        <Sidebar />
+                    </div>
+                );
+            };
+
+            const Sidebar = () => {
+                // useContext() returns the passed context object's provided value
+                const { pages, setDoc } =  React.useContext( DocumentContext );
+
+                return (
+                    <div>
+                        {
+                            pages.map(
+                                page => (
+                                    <div key={page}>
+                                        <a href="#" onClick={() => setDoc( page )}>{page}</a>
+                                    </div>
+                                )
+                            )
+                        }
+                    </div>
+                );
+            };
+
+            const B = () => {
+                return (
+                    <div className="main-wrapper">
+                        <div className="advertisement">Washing Powder Nirma</div>
+                        <Main />
+                    </div>
+                );
+            };
+
+            const Main = () => {
+                const { documents, doc } = React.useContext( DocumentContext );
+
+                return documents[doc];
+            };
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render( <App /> );
+        </script>
+    </body>
+</html>

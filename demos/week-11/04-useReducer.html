@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>useReducer()</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.js"></script>
+
+        <script type="text/babel">
+            // useReducer() is an alternative to useState() - used to group many different state changes on one state (usually an object) in one place
+            // Reducer is a "pure function" (comes from functional programming)
+            // they do not use any variables outside of the function (non-local variables)
+            // they do not modify the arguments (2)
+            // they are predictable - does not do anything random - the return value is a function of the arguments passed
+            const counterReducer = ( state, action ) => {
+                switch( action.type ) {
+                    case 'DECREMENT':
+                        // this is something we don't do (violates 2)
+                        // state.value--;
+                        // return state;
+
+                        // we are creating a new object for the new state
+                        return {
+                            ...state,
+                            value: state.value - 1
+                        };
+                    case 'INCREMENT':
+                        return {
+                            ...state,
+                            value: state.value + 1
+                        };
+                    default:
+                        return state;
+                }
+            };
+
+            const Counter = () => {
+                const [ state, dispatch ] = React.useReducer( counterReducer, {
+                    value: 0,
+                    x: 100,
+                });
+
+                return (
+                    <>
+                        <button onClick={() => dispatch( { type: 'DECREMENT' } )}>-</button>
+                        <span>{state.value}</span>
+                        <button onClick={() => dispatch( { type: 'INCREMENT'} )}>+</button>
+                    </>
+                );
+            };
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render( <Counter /> );
+        </script>
+    </body>
+</html>

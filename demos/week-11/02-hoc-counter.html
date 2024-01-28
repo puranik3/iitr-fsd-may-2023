@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.js"></script>
+
+        <script type="text/babel">
+            // HOC is a function that generates the container component
+            const withCounter = ( Comp ) => {
+                // generated Container for the Component passed as the argument
+                return class extends React.Component {
+                    state = {
+                        value: 0
+                    };
+
+                    decrement = () => {
+                        this.setState({
+                            value: this.state.value - 1
+                        });
+                    }
+                    
+                    increment = () => {
+                        this.setState({
+                            value: this.state.value + 1
+                        });
+                    }
+
+                    render() {
+                        return (
+                            <Comp
+                                value={this.state.value}
+                                decrement={this.decrement}
+                                increment={this.increment}
+                            />
+                        );
+                    }
+                }
+            };
+
+            class Counter extends React.Component {
+                render() {
+                    const { value, decrement, increment } = this.props;
+
+                    return (
+                        <>
+                            <button onClick={decrement}>-</button>
+                            <span>{value}</span>
+                            <button onClick={increment}>+</button>
+                        </>
+                    );
+                }
+            }
+
+            const CounterContainer = withCounter( Counter );
+
+            // left as an exercise
+            // const WorkshopsListContainer = withCounter( WorkshopsList );
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render( <CounterContainer /> );
+        </script>
+    </body>
+</html>

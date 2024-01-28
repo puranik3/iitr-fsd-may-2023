@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>useCallback() and React.memo()</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div id="root"></div>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.js"></script>
+
+        <script type="text/babel">
+            // React.memo ensures the component does not re-render if none of the props change
+            const PanelQuestion = React.memo(( { qn, tg } ) => {
+                console.log( 'PanelQuestion renders' );
+
+                return (
+                    <div className="bg-primary p-2" onClick={tg}>{qn}</div>
+                );
+            });
+
+            const PanelAnswer = React.memo(( { show, children } ) => {
+                console.log( 'PanelAnswer renders' );
+
+                return show === true ? <div className="p-2">{children}</div> : null;
+            });
+
+            const Panel = ( { question, children } ) => {
+                console.log( 'Panel renders' );
+
+                const [ show, setShow ] = React.useState( true );
+
+                // callback prop (a prop which is a function)
+                // toggle is a local function - gets recreated in memory every time Panel function runs
+                const toggle = React.useCallback( () => setShow( value => !value ), [ setShow ] );
+
+                return (
+                    <div className="border border-primary m-2">
+                        <PanelQuestion qn={question} tg={toggle} />
+                        <PanelAnswer show={show}>{children}</PanelAnswer>
+                    </div>
+                );
+            };
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render(
+                <>
+                    <Panel question="What is React?">
+                        <p>It is a frontend library used to define views and render them on a web page</p>
+                        <p>It was created by Meta</p>
+                    </Panel>
+                    <Panel question="What is a component?">
+                        <p>It is a piece of the UI on a webpage created using a library like React</p>
+                        <p>Components enable code reusability</p>
+                    </Panel>
+                </>
+            );
+        </script>
+    </body>
+</html>

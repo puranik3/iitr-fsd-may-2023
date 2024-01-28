@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Context API</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css">
+        <style>
+            .app {
+                display: flex;
+            }
+
+            .sidebar-wrapper, .main-wrapper {
+                flex-basis: 0;
+                padding: 1em;
+            }
+
+            .sidebar-wrapper {
+                flex-grow: 1;
+                background-color: lightblue;
+            }
+            
+            .main-wrapper {
+                flex-grow: 3;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root"></div>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.js"></script>
+
+        <script type="text/babel">
+            const documents = {
+                'Home': 'Welcome to Example.com',
+                'About Us': 'We are so and so company',
+                'Contact Us': 'Call us to get in touch. Phone: 1234567890'
+            };
+
+            const App = () => {
+                const [ doc, setDoc ] = React.useState( 'Home' );
+
+                return (
+                    <div className="app">
+                        <A pages={Object.keys( documents )} setDoc={setDoc} />
+                        <B doc={doc} documents={documents} />
+                    </div>
+                );
+            };
+
+            const A = ( { pages, setDoc } ) => {
+                return (
+                    <div className="sidebar-wrapper">
+                        <input type="search" />
+                        <Sidebar pages={pages} setDoc={setDoc} />
+                    </div>
+                );
+            };
+
+            const Sidebar = ( { pages, setDoc } ) => {
+                return (
+                    <div>
+                        {
+                            pages.map(
+                                page => (
+                                    <div key={page}>
+                                        <a href="#" onClick={() => setDoc( page )}>{page}</a>
+                                    </div>
+                                )
+                            )
+                        }
+                    </div>
+                );
+            };
+
+            const B = ( { doc, documents } ) => {
+                return (
+                    <div className="main-wrapper">
+                        <div className="advertisement">Washing Powder Nirma</div>
+                        <Main doc={doc} documents={documents} />
+                    </div>
+                );
+            };
+
+            const Main = ( { doc, documents } ) => {
+                return documents[doc];
+            };
+
+            const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+            root.render( <App /> );
+        </script>
+    </body>
+</html>
