@@ -31,12 +31,12 @@ const LibrariesList = () => {
                 )
             }
             {
-                <Row xs={1} md={2} lg={3} xl={4}>
+                <Row xs={1} md={2} lg={3}>
                     {
                         ( !loading && libraries.length !== 0 ) && (
                             libraries.map(
                                 library => (
-                                    <Col key={library.id} className="d-flex">
+                                    <Col key={library.id} className="d-flex mb-3">
                                         <LibrariesListItem
                                             library={library}
                                         />

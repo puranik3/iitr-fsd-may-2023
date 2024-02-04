@@ -7,6 +7,7 @@ export const getLibraries = async () => {
     return response.data;
 };
 
-export const getLibraryById = () => {
-    axios.get( `http://localhost:3001/libraries` )
+export const getLibraryById = async ( id : number | string ) => {
+    const response = await axios.get( `${baseUrl}/libraries/${id}` );
+    return response.data;
 };

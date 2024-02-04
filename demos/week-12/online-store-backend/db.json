@@ -1,0 +1,122 @@
+{
+    "categories": [
+        {
+            "id": "CAT100",
+            "name": "Food and Beverage"
+        },
+        {
+            "id": "CAT101",
+            "name": "Toiletries"
+        }
+    ],
+    "products": [
+        {
+            "id": 123,
+            "name": "Cinthol soap 125gm",
+            "price": 35,
+            "categoryId": "CAT101"
+        },
+        {
+            "id": 124,
+            "name": "Lays Chips",
+            "price": 50,
+            "categoryId": "CAT100"
+        },
+        {
+            "id": 125,
+            "name": "Parle G",
+            "price": 10,
+            "categoryId": "CAT100"
+        },
+        {
+            "id": 126,
+            "name": "Cinthol soap 125gm",
+            "price": 35,
+            "categoryId": "CAT101"
+        },
+        {
+            "id": 127,
+            "name": "Lays Chips",
+            "price": 50,
+            "categoryId": "CAT100"
+        },
+        {
+            "id": 128,
+            "name": "Parle G",
+            "price": 10,
+            "categoryId": "CAT100"
+        },
+        {
+            "id": 129,
+            "name": "Cinthol soap 125gm",
+            "price": 35,
+            "categoryId": "CAT101"
+        },
+        {
+            "id": 130,
+            "name": "Lays Chips",
+            "price": 50,
+            "categoryId": "CAT100"
+        },
+        {
+            "id": 131,
+            "name": "Parle G",
+            "price": 10,
+            "categoryId": "CAT100"
+        },
+        {
+            "id": 132,
+            "name": "Cinthol soap 125gm",
+            "price": 35,
+            "categoryId": "CAT101"
+        },
+        {
+            "id": 133,
+            "name": "Lays Chips",
+            "price": 50,
+            "categoryId": "CAT100"
+        },
+        {
+            "id": 134,
+            "name": "Parle G",
+            "price": 10,
+            "categoryId": "CAT100"
+        },
+        {
+            "id": 135,
+            "name": "Cinthol soap 125gm",
+            "price": 35,
+            "categoryId": "CAT101"
+        },
+        {
+            "id": 136,
+            "name": "Lays Chips",
+            "price": 50,
+            "categoryId": "CAT100"
+        },
+        {
+            "id": 137,
+            "name": "Parle G",
+            "price": 10,
+            "categoryId": "CAT100"
+        },
+        {
+            "id": 138,
+            "name": "Cinthol soap 125gm",
+            "price": 35,
+            "categoryId": "CAT101"
+        },
+        {
+            "id": 139,
+            "name": "Lays Chips",
+            "price": 50,
+            "categoryId": "CAT100"
+        },
+        {
+            "id": 140,
+            "name": "Parle G",
+            "price": 10,
+            "categoryId": "CAT100"
+        }
+    ]
+}

@@ -1,5 +1,7 @@
 import { Card, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import ILibrary from "../../../models/ILibrary";
+import Rating from '../../utils/Rating/Rating';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -16,11 +18,22 @@ const LibrariesListItem = ({ library }: Props) => {
                 alt={library.name}
             />
             <Card.Body>
-                <Card.Title>{library.name}</Card.Title>
+                <Card.Title className="d-flex justify-content-between">
+                    <div>
+                        <div>{library.name}</div>
+                        <div>
+                            <Rating
+                                rating={library.rating}
+                                numRatings={library.noOfRatings}
+                            />
+                        </div>
+                    </div>
+                    <div><Link className="btn btn-primary btn-sm" to={`/libraries/${library.id}`}>More</Link></div>
+                </Card.Title>
                 <Card.Text>
                     {library.location}
                 </Card.Text>
-                <Button variant="primary">More</Button>
+                
             </Card.Body>
         </Card>
     );
