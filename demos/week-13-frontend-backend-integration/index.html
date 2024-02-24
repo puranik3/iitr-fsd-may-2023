@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.10/babel.js"></script>
+
+    <script type="text/babel">
+        const fruits = [
+            'Apple',
+            'Avocado',
+            'Banana',
+            'Berry'
+        ];
+
+        const List = () => {
+            const [ filteredFruits, setFilteredFruits ] = React.useState( fruits );
+
+            const filter = (event) => {
+                const key = event.target.value;
+
+                // in server-side filtering you pass the key to the backend and the backend returns the filtered list of fruits
+                
+                setFilteredFruits(
+                    fruits.filter(
+                        fruit => fruit.toUpperCase().includes( key.toUpperCase() )
+                    )
+                );
+            };
+
+            return (
+                <>
+                <input type="search" onChange={filter} />
+                {
+                    filteredFruits.map(
+                        fruit => <div key={fruit}>{fruit}</div>
+                    )
+                }
+                </>
+            );
+        };
+
+        const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
+        root.render( <List /> );
+
+    </script>
+</body>
+</html>
