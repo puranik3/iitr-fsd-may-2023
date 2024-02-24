@@ -1,77 +1,56 @@
-import React, { Component } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AuthenticationService from "./AuthenticationService.js";
 
-class LoginComponent extends Component {
-    constructor(props) {
-        super(props);
+const LoginComponent = () => {
+    const navigate = useNavigate();
 
-        this.state = {
-            username: "user",
-            password: "",
-            hasLoginFailed: false
-        };
+    const [ username, setUsername ] = useState( 'user' );
+    const [ password, setPassword ] = useState( '' );
+    const [ hasLoginFailed, setLoginFailed ] = useState( false );
 
-        this.handleChange = this.handleChange.bind(this);
-        this.loginClicked = this.loginClicked.bind(this);
+    const loginClicked = async () => {
+        try {
+            const response = await AuthenticationService.executeJwtAuthenticationService( username, password )
+            AuthenticationService.registerSuccessfulLoginForJwt( username, response.data.token );
+            navigate(`/welcome/${username}`);
+        } catch( error ) {
+            setLoginFailed( true );
+        }
     }
 
-    handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value,
-        });
-    }
-
-    loginClicked() {
-        AuthenticationService.executeJwtAuthenticationService(
-            this.state.username,
-            this.state.password
-        )
-            .then((response) => {
-                AuthenticationService.registerSuccessfulLoginForJwt(
-                    this.state.username,
-                    response.data.token
-                );
-                this.props.navigate(`/welcome/${this.state.username}`);
-            })
-            .catch(() => {
-                this.setState({ hasLoginFailed: true });
-            });
-    }
-
-    render() {
-        return (
-            <div>
-                <h1>Login</h1>
-                <div className="container">
-                    {this.state.hasLoginFailed && (
-                        <div className="alert alert-warning">
-                            Invalid Credentials
-                        </div>
-                    )}
-                    User Name:{" "}
-                    <input
-                        type="text"
-                        name="username"
-                        value={this.state.username}
-                        onChange={this.handleChange}
-                    />
-                    Password:{" "}
-                    <input
-                        type="password"
-                        name="password"
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                    />
-                    <button
-                        className="btn btn-success"
-                        onClick={this.loginClicked}
-                    >
-                        Login
-                    </button>
-                </div>
+    return (
+        <div>
+            <h1>Login</h1>
+            <div className="container">
+                {hasLoginFailed && (
+                    <div className="alert alert-warning">
+                        Invalid Credentials
+                    </div>
+                )}
+                User Name:{" "}
+                <input
+                    type="text"
+                    name="username"
+                    value={username}
+                    onChange={event => setUsername( event.target.value )}
+                />
+                Password:{" "}
+                <input
+                    type="password"
+                    name="password"
+                    value={password}
+                    onChange={event => setPassword( event.target.value )}
+                />
+                <button
+                    className="btn btn-success"
+                    onClick={loginClicked}
+                >
+                    Login
+                </button>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default LoginComponent;

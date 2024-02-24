@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
-import withNavigation from "./WithNavigation.jsx";
-import withParams from "./WithParams.jsx";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import AuthenticatedRoute from "./AuthenticatedRoute.jsx";
 import LoginComponent from "./LoginComponent.jsx";
@@ -16,30 +12,24 @@ import TodoComponent from "./TodoComponent.jsx";
 
 class TodoApp extends Component {
     render() {
-        const HeaderComponentWithNavigation = withNavigation( HeaderComponent );
-        const LoginComponentWithNavigation = withNavigation( LoginComponent );
-        const WelcomeComponentWithParams = withParams( WelcomeComponent );
-        const TodoComponentWithParamsAndNavigation = withParams( withNavigation( TodoComponent ) );
-        const ListTodosComponentWithNavigation = withNavigation( ListTodosComponent );
-
         return (
             <div className="TodoApp">
-                <Router>
-                    <HeaderComponentWithNavigation  />
+                <BrowserRouter>
+                    <HeaderComponent  />
                     <Routes>
                         <Route
                             path="/"
-                            element={<LoginComponentWithNavigation />}
+                            element={<LoginComponent />}
                         />
                         <Route
                             path="/login"
-                            element={<LoginComponentWithNavigation />}
+                            element={<LoginComponent />}
                         />
                         <Route
                             path="/welcome/:name"
                             element={
                                 <AuthenticatedRoute>
-                                    <WelcomeComponentWithParams />
+                                    <WelcomeComponent />
                                 </AuthenticatedRoute>
                             }
                         />
@@ -47,7 +37,7 @@ class TodoApp extends Component {
                             path="/todos"
                             element={
                                 <AuthenticatedRoute>
-                                    <ListTodosComponentWithNavigation />
+                                    <ListTodosComponent />
                                 </AuthenticatedRoute>
                             }
                         />
@@ -55,14 +45,14 @@ class TodoApp extends Component {
                             path="/todos/:id"
                             element={
                                 <AuthenticatedRoute>
-                                    <TodoComponentWithParamsAndNavigation />
+                                    <TodoComponent />
                                 </AuthenticatedRoute>
                             }
                         />
                         <Route path="*" element={<ErrorComponent />} />
                     </Routes>
                     <FooterComponent />
-                </Router>
+                </BrowserRouter>
             </div>
         );
     }

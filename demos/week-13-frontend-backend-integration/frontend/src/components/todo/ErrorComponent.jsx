@@ -1,6 +1,4 @@
-import React from "react";
-
-function ErrorComponent() {
+const ErrorComponent = () => {
     return <div>An Error Occurred.Check the url</div>;
 }
 
